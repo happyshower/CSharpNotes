@@ -17,69 +17,76 @@
 - 结构不能继承其他结构或类，也不可以作为其他结构的基结构，但结构可以实现一个或多个接口
 
   ```csharp
-  //定义一个接口
-  interface IPersonMethods
+  namespace Practise
   {
-    //接口成员
-     public string GetPersonInfo();
-  }
-  //使用 struct 声明一个结构体，并实现 IPersonMethods 接口（可以实现多个接口）
-  struct Person: IPersonMethods
-  {
-     public string Name;
-     public int Age;
+      internal class PractiseDemo
+      {
+          public static void Main(string[] args)
+          {
+              //使用结构体的默认构造函数创建实例
+              Person p1 = new Person();
+              p1.name = "张三";
+              p1.age = 18;
+              p1.ShowInfo();  //张三 18
 
-     //自定义有参构造函数
-     public Person(string name, int age)
-     {
-       //所有的字段都需要赋值
-         this.Name = name;
-         this.Age = age;
-     }
+              //结构体是值类型
+              Person person = p1;  //赋值操作
+              p1.age = 33;
+              Console.WriteLine(person.age); //18
 
-     public void ShowInfo()
-     {
-         Console.WriteLine(this.Name+this.Age);
-     }
-     //同名方法的重载
-     public void ShowInfo(string location)
-     {
-         Console.WriteLine(this.Name+this.Age+location);
-     }
+              //使用结构体的有参构造函数创建实例
+              Person p2 = new Person("李四", 24);
+              p2.ShowInfo();
+              Console.WriteLine(p2.GetPersonInfo()); //李四 24
 
-     //实现接口的方法
-     public string GetPersonInfo()
-     {
-         return this.Name + this.Age;
-     }
-  }
-  ```
+              //不使用 new 实例化获取结构对象
+              Person p3;
+              p3.name = "王五";
+              p3.age = 22;
+              p3.ShowInfo(); //王五 22
+              //同名方法的重载
+              p3.ShowInfo("zhongShan");  //王五 22 zhongShan
+          }
+      }
 
-  ```csharp
-  public static void Main(string[] args)
-  {
-      //使用结构体的默认构造函数创建实例
-      Person p1 = new Person();
-      p1.Name = "张三";
-      p1.Age = 18;
-      p1.ShowInfo(); //张三 18
+      //定义一个接口
+      interface IPerson
+      {
+          //接口成员
+          string GetPersonInfo();
+      }
 
-      Person person = p1;
-      p1.Age = 33;
-      Console.WriteLine(person.Age);  //18
+      //使用 struct 声明一个结构体，并实现 IPersonMethods 接口（可以实现多个接口）
+      struct Person:IPerson
+      {
+          public string name;
+          public int age;
 
-      //使用结构体的有参构造函数创建实例
-      Person p2 = new Person("李四", 24);
-      p2.ShowInfo();  //李四 24
-      Console.WriteLine(p2.GetPersonInfo()); //李四 24
+          //自定义有参构造函数
+          public Person(string name, int age)
+          {
+              //所有的字段都需要赋值
+              this.name = name;
+              this.age = age;
+          }
 
-      //不使用 new 实例化获取结构对象
-      Person p3;
-      p3.Name = "王五";
-      p3.Age = 22;
-      p3.ShowInfo(); //王五 22
-      //同名方法的重载
-      p3.ShowInfo("zhongShan"); //王五 22 zhongShan
+          public void ShowInfo()
+          {
+              Console.WriteLine(name+age);
+          }
+
+          //同名方法的重载
+          public void ShowInfo(string location)
+          {
+              Console.WriteLine(name+age+location);
+          }
+
+          //实现接口的方法
+          public string GetPersonInfo()
+          {
+              return name + age;
+          }
+      }
   }
   ```
 
@@ -108,78 +115,104 @@
       Console.WriteLine("图形标识："+Square.Graphics);  //sharp ,共享静态成员
   }
 
-  public class Rectangle
+
+  namespace Practise1
   {
-      private int width;
-      private int height;
-
-      public Rectangle(int width,int height)
+      internal class PractiseDemo
       {
-          this.height = height;
-          this.width = width;
+          public static void Main(string[] args)
+          {
+              //用 new 关键字实例化一个 Square 实例对象
+              Square square = new Square(10,10,"pink");
+              square.Color = "yellow";
+              Square.Graphics = "sharp";
+              Console.WriteLine("图形标识："+Square.Graphics);  //sharp
+              Console.WriteLine("矩形面积："+square.GetArea()); //10000
+              Console.WriteLine("矩形周长："+square.GetPerimeter()); //40
+              square.ShowSquare(); //yellow
+              
+              Square square2 = new Square(5,15,"skyblue");
+              square.Color = "blue";
+              Console.WriteLine("图形标识："+Square.Graphics);  //sharp ,共享静态成员
+          }
+      } 
+
+      public class Rectangle
+      {
+          private int width;
+          private int height;
+
+          public Rectangle(int width,int height)
+          {
+              this.height = height;
+              this.width = width;
+          }
+      
+          public int GetArea()
+          {
+              return width * height;
+          }
+          
+          public int GetPerimeter()
+          {
+              return 2 * width + 2 * height;
+          }
       }
 
-      public int GetArea()
+      // 通过 : 符号实现父类的继承和接口的实现（只能继承一个父类，但可以实现多个接口）
+      public class Square:Rectangle
       {
-          return width * height;
-      }
+          // color 被定义为私有字段，只能在类内部使用
+          // private string color;
+          // //使用常规属性，定义一个私有的字段（color）和一个公共的属性(Color),再使用get、set访问器
+          // public string Color  //定义属性
+          // {
+          //     get      //使用get访问器获取 color 字段
+          //     {
+          //         return color;
+          //     }
+          //     set      //使用set访问器修改 color 字段
+          //     {
+          //         // 通过上下文关键字 value 来修改字段的值
+          //         color = value;
+          //     }
+          // }
 
-      public int GetPerimeter()
-      {
-          return 2 * width + 2 * height;
-      }
-  }
+          //用 static 定义一个静态成员变量
+          public static string Graphics = "square";
+          //使用自动属性
+          public string Color { get; set; }
 
-  // 通过 : 符号实现父类的继承和接口的实现（只能继承一个父类，但可以实现多个接口）
-  public class Square: Rectangle
-  {
-      // color 被定义为私有字段，只能在类内部使用
-      // private string color;
-      // //使用常规属性，定义一个私有的字段（name）和一个公共的属性(Name),再使用get、set访问器
-      // public string Color  //定义属性
-      // {
-      //     get      //使用get访问器获取 color 字段
-      //     {
-      //         return color;
-      //     }
-      //     set      //使用set访问器修改 color 字段
-      //     {
-      //         // 通过上下文关键字 value 来修改字段的值
-      //         color = value;
-      //     }
-      // }
+          //在类实例化之前执行，只执行一次
+          static Square()
+          {
+              
+          }
 
-      //使用自动属性
-      public string Color { get; set; }
+          //自定义有参构造函数，通过 base 调用父类的构造函数
+          public Square(int width,int height,string color):base(width,height)
+          {
+              Color = color;
+          }
 
-      //静态构造函数，在类实例化之前执行，只执行一次
-      static Square()
-      {
+          public void ShowSquare()
+          {
+              Console.WriteLine("矩形颜色："+ Color +"-"+ Graphics);
+          }
 
-      }
+          //当子类的方法和父类的方法重名时，会隐式的隐藏父类的方法
+          //使用new关键字明确表示隐藏父类的同名方法
+          public new int GetArea()
+          {
+              Console.WriteLine("父类的方法"+base.GetArea());  //100
+              return base.GetArea() * 100;
+          }
 
-      //自定义有参构造函数，通过 base 调用父类的构造函数
-      public Square(int width,int height,string color):base(width,height)
-      {
-          this.Color = color;
-      }
-      public void ShowSquare()
-      {
-          Console.WriteLine("正方形颜色："+ Color);
-      }
-      //当子类的方法和父类的方法重名时，会隐式的隐藏父类的方法
-      //使用new关键字明确表示隐藏父类的同名方法
-      public new int GetArea()
-      {
-          //通过 base 调用父类的重名方法
-          Console.WriteLine("父类的方法"+base.GetArea());  //100
-          return base.GetArea() * 100;
-      }
-
-      //用 ~ 符号标识为析构函数，且只能有一个析构函数
-      ~Square()
-      {
-          Console.WriteLine("析构函数被执行！");
+          //用 ~ 符号标识为析构函数，且只能有一个析构函数
+          ~Square()
+          {
+              Console.WriteLine("析构函数被执行！");
+          }
       }
   }
   ```
