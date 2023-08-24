@@ -12,7 +12,7 @@
 - 结构体是一个具有很多相同的或者类似特征的数据结构，使用关键字 struct 声明
 - 结构体在声明字段时不可以赋值
 - 结构体是一个是值类型，在赋值时进行复制，即产生一个新的副本，修改原数据不会影响副本的数据
-- 结构的默认构造函数是无参数的，并且不能被修改，但可以自定义有参构造函数,有参构造函数中必须给所有字段赋值
+- 结构的默认构造函数是无参数的，并且不能被修改，但可以自定义有参构造函数，有参构造函数中必须给所有字段赋值
 - 结构对象的创建可以使用 new 来实例化，也可以不使用 new ，但需要手动完成对象的初始化
 - 结构不能继承其他结构或类，也不可以作为其他结构的基结构，但结构可以实现一个或多个接口
 
@@ -72,13 +72,13 @@
 
           public void ShowInfo()
           {
-              Console.WriteLine(name+age);
+              Console.WriteLine(name + age);
           }
 
           //同名方法的重载
           public void ShowInfo(string location)
           {
-              Console.WriteLine(name+age+location);
+              Console.WriteLine(name + age + location);
           }
 
           //实现接口的方法
@@ -107,44 +107,44 @@
           public static void Main(string[] args)
           {
               //用 new 关键字实例化一个 Square 实例对象
-              Square square = new Square(10,10,"pink");
+              Square square = new Square(10, 10, "pink");
               square.Color = "yellow";
               Square.Graphics = "sharp";
-              Console.WriteLine("图形标识："+Square.Graphics);  //sharp
-              Console.WriteLine("矩形面积："+square.GetArea()); //10000
-              Console.WriteLine("矩形周长："+square.GetPerimeter()); //40
+              Console.WriteLine("图形标识：" + Square.Graphics);  //sharp
+              Console.WriteLine("矩形面积：" + square.GetArea()); //10000
+              Console.WriteLine("矩形周长：" + square.GetPerimeter()); //40
               square.ShowSquare(); //yellow
 
-              Square square2 = new Square(5,15,"skyblue");
+              Square square2 = new Square(5, 15, "skyblue");
               square.Color = "blue";
-              Console.WriteLine("图形标识："+Square.Graphics);  //sharp ,共享静态成员
+              Console.WriteLine("图形标识：" + Square.Graphics);  //sharp ,共享静态成员
           }
       }
 
       public class Rectangle
       {
-          private int width;
-          private int height;
+          private int _width;
+          private int _height;
 
-          public Rectangle(int width,int height)
+          public Rectangle(int width, int height)
           {
-              this.height = height;
-              this.width = width;
+              _height = height;
+              _width = width;
           }
 
           public int GetArea()
           {
-              return width * height;
+              return _width * _height;
           }
 
           public int GetPerimeter()
           {
-              return 2 * width + 2 * height;
+              return 2 * _width + 2 * _height;
           }
       }
 
       // 通过 : 符号实现父类的继承和接口的实现（只能继承一个父类，但可以实现多个接口）
-      public class Square:Rectangle
+      public class Square : Rectangle
       {
           // color 被定义为私有字段，只能在类内部使用
           // private string color;
@@ -174,21 +174,21 @@
           }
 
           //自定义有参构造函数，通过 base 调用父类的构造函数
-          public Square(int width,int height,string color):base(width,height)
+          public Square(int width, int height, string color) : base(width, height)
           {
               Color = color;
           }
 
           public void ShowSquare()
           {
-              Console.WriteLine("矩形颜色："+ Color +"-"+ Graphics);
+              Console.WriteLine("矩形颜色：" + Color + "-" + Graphics);
           }
 
           //当子类的方法和父类的方法重名时，会隐式的隐藏父类的方法
           //使用new关键字明确表示隐藏父类的同名方法
           public new int GetArea()
           {
-              Console.WriteLine("父类的方法"+base.GetArea());  //100
+              Console.WriteLine("父类的方法" + base.GetArea());  //100
               return base.GetArea() * 100;
           }
 
