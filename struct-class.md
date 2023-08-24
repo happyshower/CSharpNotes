@@ -100,22 +100,6 @@
 - 类可以继承一个基类实现多个接口
 
   ```csharp
-  public static void Main(string[] args)
-  {
-      //用 new 关键字实例化一个 Square 实例对象
-      Square square = new Square(10,10,"pink");
-      square.Color = "yellow";
-      Square.Graphics = "sharp";
-      Console.WriteLine("图形标识："+Square.Graphics);  //sharp
-      Console.WriteLine("正方形面积："+square.GetArea());  //10000
-      Console.WriteLine("正方形周长："+square.GetPerimeter());  //40
-      square.ShowSquare();  //yellow
-
-      Square square2 = new Square(5,15,"skyblue");
-      Console.WriteLine("图形标识："+Square.Graphics);  //sharp ,共享静态成员
-  }
-
-
   namespace Practise1
   {
       internal class PractiseDemo
@@ -130,12 +114,12 @@
               Console.WriteLine("矩形面积："+square.GetArea()); //10000
               Console.WriteLine("矩形周长："+square.GetPerimeter()); //40
               square.ShowSquare(); //yellow
-              
+
               Square square2 = new Square(5,15,"skyblue");
               square.Color = "blue";
               Console.WriteLine("图形标识："+Square.Graphics);  //sharp ,共享静态成员
           }
-      } 
+      }
 
       public class Rectangle
       {
@@ -147,12 +131,12 @@
               this.height = height;
               this.width = width;
           }
-      
+
           public int GetArea()
           {
               return width * height;
           }
-          
+
           public int GetPerimeter()
           {
               return 2 * width + 2 * height;
@@ -186,7 +170,7 @@
           //在类实例化之前执行，只执行一次
           static Square()
           {
-              
+
           }
 
           //自定义有参构造函数，通过 base 调用父类的构造函数
