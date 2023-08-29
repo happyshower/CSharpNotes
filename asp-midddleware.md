@@ -9,7 +9,7 @@
 
 #### 使用 WebApplication 创建中间件管道
 
-![中间件管道图]([image.png](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware/index/_static/request-delegate-pipeline.png?view=aspnetcore-7.0))
+![中间件管道图](https://learn.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware/index/_static/request-delegate-pipeline.png?view%253Daspnetcore-7.0)
 
 - ASP .NET Core 请求管道包含一系列请求委托，依次调用。每一个中间件都会被执行两次，在下一个中间件执行之前和之后各执行一次，分别是在处理请求和处理响应，当执行到终端中间件时，不会再执行后面的中间件，所以执行到它管道就会回转。
 
