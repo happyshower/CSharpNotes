@@ -45,7 +45,8 @@
 - 视图负责在用户界面呈现内容。它们使用 Razor 视图引擎在 HTML 标记中嵌入 .NET 代码。视图中应仅包含少量的逻辑，而这些逻辑应该是与呈现内容相关的。
 
   ```html
-  @model WebApplication1.Models.UserModel; @{ ViewData["Title"] = "Home Page"; }
+  @model WebApplication1.Models.UserModel; 
+  @{ ViewData["Title"] = "Home Page"; }
 
   <div class="text-center">
     <h1 class="display-4">Welcome</h1>
