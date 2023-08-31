@@ -130,7 +130,7 @@ public class StudentController : Controller
 // [Route("[controller]/[action]")]  
 public class StudentController : Controller
 {
-    [Route("[action]")]  // 使用 action 特性标记，表示已该操作的方法名进行匹配，如 /student/GetStudentName
+    [Route("[action]")]  // 使用 action 特性标记，表示以该操作的方法名进行匹配，如 /student/GetStudentName
     public string GetStudentName()
     {
         return "张三";
