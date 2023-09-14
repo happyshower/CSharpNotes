@@ -9,7 +9,7 @@
 - 作业存储：存储是 Hangfire 保存与后台作业处理相关的所有信息的地方。所有细节（如类型、方法名称、参数等）都被序列化并放入存储中，没有数据保存在进程的内存中。
 - 服务器：通过 Hangfire Server（一组非线程池的后台线程）来侦听存储中的新后台作业，从作业存储中取出任务并通过反序列化类型、方法和参数来执行新作业。
 
-  ![Alt text](https://static.bookstack.cn/projects/Hangfire-zh-official/153a9d5156afd2e9.png)
+  ![Alt text](https://img-blog.csdnimg.cn/img_convert/eb7deaaa2fa63ae7f3d78398897ff59c.png)
 
 #### 作业类型
 
