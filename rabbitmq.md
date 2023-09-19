@@ -1,8 +1,8 @@
-### RabbitMQ 消息队列
+## RabbitMQ 消息队列
 
 - RabbitMQ 是由 Erlang 语言开发的一个基于 AMQP (Advanced Message Queuing Protocol) 协议的企业级消息队列中间件。可实现队列，订阅/发布，路由，通配符等工作模式。
 
-#### 基本概念
+### 基本概念
 
 - Server：又称 broker，接受客户端的链接，实现 AMQP 实体服务
 - Connection：连接，应用程序与 broker 的网络连接
@@ -11,9 +11,7 @@
 - Exchange：交换机，接收消息，根据路由键转单消息到绑定队列
 - Routing key： 一个路由规则，虚拟机可用它来确定如何路由一个特定消息。
 
-#### 队列模式
-
----
+### 队列模式
 
 1. **简单模式**
 
@@ -320,7 +318,7 @@
      - RPC 服务器端监听 rpc_queue 队列中的请求，当请求到来时，服务器端会处理并且把带有结果的消息发送给客户端。接收的队列就是 replyTo 设定的回调队列。
      - 客户端监听回调队列，当有消息时，检查 correlationId 属性，如果与 request 中匹配，那就是结果了。
 
-#### 补充
+### 补充
 
 - QueueDeclare 用于声明一个队列
 
